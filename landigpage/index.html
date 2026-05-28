@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Clínica odontológica de primer nivel en El Salvador. Ofrecemos limpieza, ortodoncia y más. Agenda tu cita.">
+    <title>CLINICA DENTAL CISNEROS | Clínica Odontológica en El Salvador</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;500;700;800&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-tooth"></i> CLINICA DENTAL CISNEROS
+        </div>
+        <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#nosotros">Clínica</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#precios">Precios</a></li>
+        </ul>
+        <!-- BOTONES DE AUTENTICACIÓN -->
+        <div class="nav-auth">
+            <a href="http://localhost:5173/patient/login" class="btn btn-text"><i class="fa-regular fa-user"></i>
+                Iniciar Sesión</a>
+            <a href="http://localhost:5173/patient/register" class="btn btn-primary"><i
+                    class="fa-solid fa-user-plus"></i> Registrarse</a>
+        </div>
+    </nav>
+
+    <!-- Sección Hero (Inicio) -->
+    <header id="inicio" class="hero">
+        <div class="hero-content">
+            <h1>Tu mejor sonrisa comienza <span>aquí</span></h1>
+            <p>Atención odontológica de primera calidad en El Salvador. Tecnología moderna, sin dolor y con un equipo de
+                expertos dedicados a tu salud bucal.</p>
+            <div class="hero-buttons">
+                <a href="#servicios" class="btn btn-primary">Ver Servicios <i class="fa-solid fa-arrow-down"></i></a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="glass-card floating">
+                <div class="icon-wrap"><i class="fa-solid fa-star"></i></div>
+                <div>
+                    <h4>5.0 Estrellas</h4>
+                    <p>Cientos de salvadoreños felices</p>
+                </div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Odontología moderna en El Salvador">
+        </div>
+    </header>
+
+    <!-- Sección Nosotros -->
+    <section id="nosotros" class="about">
+        <div class="section-heading">
+            <span class="subtitle">¿Por qué elegirnos?</span>
+            <h2>Excelencia Odontológica</h2>
+            <p>Con sede en San Salvador, llevamos años cuidando las sonrisas de los salvadoreños con un enfoque humano y
+                altamente tecnológico.</p>
+        </div>
+        <div class="grid features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-user-doctor"></i></div>
+                <h3>Especialistas</h3>
+                <p>Odontólogos altamente capacitados en diversas especialidades para brindarte el mejor cuidado.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-microscope"></i></div>
+                <h3>Alta Tecnología</h3>
+                <p>Equipamiento de última generación para diagnósticos precisos y tratamientos rápidos y sin dolor.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fa-solid fa-shield-heart"></i></div>
+                <h3>Higiene y Seguridad</h3>
+                <p>Protocolos estrictos de esterilización para garantizar un ambiente 100% seguro para ti y tu familia.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Servicios -->
+    <section id="servicios" class="services">
+        <div class="section-heading">
+            <span class="subtitle">Tratamientos</span>
+            <h2>Nuestros Servicios</h2>
+            <p>Soluciones integrales para mantener y mejorar tu salud dental.</p>
+        </div>
+        <div class="grid services-grid">
+            <div class="service-card">
+                <div class="service-image">
+                    <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Limpieza Dental">
+                </div>
+                <div class="service-content">
+                    <h3>Odontología General</h3>
+                    <p>Limpiezas profilácticas, aplicación de flúor, sellantes y prevención de caries.</p>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">
+                    <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                        alt="Ortodoncia">
+                </div>
+                <div class="service-content">
+                    <h3>Ortodoncia</h3>
+                    <p>Brackets metálicos, estéticos y alineadores invisibles para una sonrisa perfecta.</p>
+                </div>
+            </div>
+            <div class="service-card">
+                <div class="service-image">
+                    <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                        alt="Estética Dental">
+                </div>
+                <div class="service-content">
+                    <h3>Estética Dental</h3>
+                    <p>Blanqueamiento dental láser, carillas de porcelana y diseño de sonrisa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Precios (El Salvador) -->
+    <section id="precios" class="pricing">
+        <div class="section-heading">
+            <span class="subtitle">Inversión en tu salud</span>
+            <h2>Tarifas Transparentes</h2>
+            <p>Precios competitivos adaptados a El Salvador, con opciones de pago flexibles.</p>
+        </div>
+        <div class="grid pricing-grid">
+            <div class="price-card">
+                <h3>Consulta Básica</h3>
+                <div class="price">
+                    <span class="currency">$</span><span class="amount">15</span>
+                </div>
+                <p class="price-desc">Ideal para primera revisión.</p>
+                <ul class="price-features">
+                    <li><i class="fa-solid fa-check"></i> Evaluación diagnóstica</li>
+                    <li><i class="fa-solid fa-check"></i> Radiografía pequeña</li>
+                    <li><i class="fa-solid fa-check"></i> Presupuesto detallado</li>
+                </ul>
+            </div>
+
+            <div class="price-card popular">
+                <div class="badge">Más solicitado</div>
+                <h3>Limpieza Profunda</h3>
+                <div class="price">
+                    <span class="currency">$</span><span class="amount">25</span>
+                </div>
+                <p class="price-desc">Prevención y frescura total.</p>
+                <ul class="price-features">
+                    <li><i class="fa-solid fa-check"></i> Profilaxis completa</li>
+                    <li><i class="fa-solid fa-check"></i> Eliminación de sarro (detartraje)</li>
+                    <li><i class="fa-solid fa-check"></i> Pulido dental</li>
+                </ul>
+            </div>
+
+            <div class="price-card">
+                <h3>Rellenos y Extracciones</h3>
+                <div class="price">
+                    <span class="from">Desde</span><span class="currency">$</span><span class="amount">30</span>
+                </div>
+                <p class="price-desc">Tratamientos correctivos.</p>
+                <ul class="price-features">
+                    <li><i class="fa-solid fa-check"></i> Resinas estéticas ($35)</li>
+                    <li><i class="fa-solid fa-check"></i> Extracciones simples ($30)</li>
+                    <li><i class="fa-solid fa-check"></i> Anestesia sin dolor</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Call to Action (Plataforma de Citas) -->
+    <section id="citas" class="cta-section">
+        <div class="cta-container">
+            <h2>¿Listo para agendar tu visita?</h2>
+            <p>Utiliza nuestra plataforma de citas en línea. Elige el día, la hora y el doctor de tu preferencia en
+                cuestión de segundos.</p>
+
+            <!-- ENLACES A PLATAFORMA DE CITAS -->
+            <div class="cta-buttons" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="http://localhost:5173/patient/login" class="btn btn-massive"><i class="fa-regular fa-user"></i>
+                    Iniciar Sesión</a>
+                <a href="http://localhost:5173/patient/register" class="btn btn-massive"
+                    style="background: transparent; border: 2px solid white; color: white;"><i
+                        class="fa-solid fa-user-plus"></i> Registrarse</a>
+            </div>
+
+            <p class="cta-note"><i class="fa-solid fa-location-dot"></i> Visítanos en nuestra sucursal principal en San
+                Salvador.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-info">
+                <div class="logo logo-footer">
+                    <i class="fa-solid fa-tooth"></i> CLINICA DENTAL CISNEROS
+                </div>
+                <p>Comprometidos con brindarte la mejor atención odontológica en El Salvador. Tu sonrisa es nuestra
+                    mejor carta de presentación.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><i class="fa-brands fa-whatsapp"></i> +503 7000-0000</li>
+                    <li><i class="fa-solid fa-phone"></i> +503 2222-0000</li>
+                    <li><i class="fa-solid fa-envelope"></i> info@sonrisassv.com</li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Ubicación</h4>
+                <ul>
+                    <li><i class="fa-solid fa-location-dot"></i> BARRIO APANECA , 3 CALLE ORIENTE ,   CASA # 3, CHALCHUAPA
+                        , SANTA ANA
+                    </li>
+                    <li><i class="fa-regular fa-clock"></i> Lunes a Viernes: 8am - 6pm</li>
+                    <li><i class="fa-regular fa-clock"></i> Sábados: 8am - 12pm</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Clínica Odontológica CLINICA DENTAL CISNEROS. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
