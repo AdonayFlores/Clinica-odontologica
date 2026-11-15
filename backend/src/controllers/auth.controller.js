@@ -77,6 +77,25 @@ const register = async (req, res) => {
     return res.status(400).json({ error: 'La contraseña debe tener al menos 6 caracteres.' });
   }
 
+  // Validaciones de formato (el frontend también valida, pero nunca hay que confiar solo en él)
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
+    return res.status(400).json({ error: 'El correo no tiene un formato válido.' });
+  }
+  if (documento_identidad && !/^\d{9}$/.test(String(documento_identidad))) {
+    return res.status(400).json({ error: 'El DUI debe tener exactamente 9 dígitos numéricos.' });
+  }
+  if (telefono && !/^[267]\d{7}$/.test(String(telefono))) {
+    return res.status(400).json({ error: 'El teléfono debe tener 8 dígitos y empezar con 2, 6 o 7.' });
+  }
+  if (fecha_nacimiento) {
+    const f = new Date(fecha_nacimiento);
+    const hoy = new Date();
+    const minima = new Date(hoy.getFullYear() - 120, 0, 1);
+    if (isNaN(f.getTime()) || f > hoy || f < minima) {
+      return res.status(400).json({ error: 'La fecha de nacimiento no es válida.' });
+    }
+  }
+
   const conn = await pool.getConnection();
   try {
     await conn.beginTransaction();

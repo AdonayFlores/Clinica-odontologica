@@ -1,5 +1,25 @@
 const pool = require('../database/connection');
 
+// Valida formato de DUI, teléfonos y fecha de nacimiento. Devuelve un mensaje de error o null.
+const validarDatosPaciente = ({ documento_identidad, telefono, contacto_emergencia_telefono, fecha_nacimiento }) => {
+  if (documento_identidad && !/^\d{9}$/.test(String(documento_identidad))) {
+    return 'El DUI debe tener exactamente 9 dígitos numéricos.';
+  }
+  if (telefono && !/^[267]\d{7}$/.test(String(telefono))) {
+    return 'El teléfono debe tener 8 dígitos y empezar con 2, 6 o 7.';
+  }
+  if (contacto_emergencia_telefono && !/^[267]\d{7}$/.test(String(contacto_emergencia_telefono))) {
+    return 'El teléfono de emergencia debe tener 8 dígitos y empezar con 2, 6 o 7.';
+  }
+  if (fecha_nacimiento) {
+    const f = new Date(fecha_nacimiento);
+    const hoy = new Date();
+    const minima = new Date(hoy.getFullYear() - 120, 0, 1);
+    if (isNaN(f.getTime()) || f > hoy || f < minima) return 'La fecha de nacimiento no es válida.';
+  }
+  return null;
+};
+
 // GET /api/pacientes
 const getAll = async (req, res) => {
   try {
@@ -76,7 +96,7 @@ const getById = async (req, res) => {
 // POST /api/pacientes
 const create = async (req, res) => {
   const {
-    nombres, apellidos, fecha_nacimiento, sexo,
+    nombres, apellidos, documento_identidad, fecha_nacimiento, sexo, alergias, tipo_sangre,
     telefono, correo, direccion,
     contacto_emergencia_nombre, contacto_emergencia_telefono,
     id_usuario
@@ -85,12 +105,14 @@ const create = async (req, res) => {
   if (!nombres || !apellidos || !fecha_nacimiento || !sexo) {
     return res.status(400).json({ error: 'Campos requeridos: nombres, apellidos, fecha_nacimiento, sexo.' });
   }
+  const errorValidacion = validarDatosPaciente({ documento_identidad, telefono, contacto_emergencia_telefono, fecha_nacimiento });
+  if (errorValidacion) return res.status(400).json({ error: errorValidacion });
 
   try {
     const [result] = await pool.query(
-      `INSERT INTO PACIENTE (id_usuario, nombres, apellidos, fecha_nacimiento, sexo, telefono, correo, direccion, contacto_emergencia_nombre, contacto_emergencia_telefono)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [id_usuario, nombres, apellidos, fecha_nacimiento, sexo, telefono || null, correo || null, direccion || null, contacto_emergencia_nombre || null, contacto_emergencia_telefono || null]
+      `INSERT INTO PACIENTE (id_usuario, nombres, apellidos, documento_identidad, fecha_nacimiento, sexo, alergias, tipo_sangre, telefono, correo, direccion, contacto_emergencia_nombre, contacto_emergencia_telefono)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [id_usuario, nombres, apellidos, documento_identidad || null, fecha_nacimiento, sexo, alergias || null, tipo_sangre || null, telefono || null, correo || null, direccion || null, contacto_emergencia_nombre || null, contacto_emergencia_telefono || null]
     );
 
     // Crear historial clínico automáticamente
@@ -115,6 +137,9 @@ const update = async (req, res) => {
     telefono, correo, direccion,
     contacto_emergencia_nombre, contacto_emergencia_telefono
   } = req.body;
+
+  const errorValidacion = validarDatosPaciente({ documento_identidad, telefono, contacto_emergencia_telefono, fecha_nacimiento });
+  if (errorValidacion) return res.status(400).json({ error: errorValidacion });
 
   try {
     const [result] = await pool.query(
@@ -321,4 +346,3 @@ const getMisRecetas = async (req, res) => {
 };
 
 module.exports = { getAll, getById, create, update, remove, getHistorial, crearAcceso, getMiPerfil, getMisCitas, getMiHistorial, getMisRecetas };
-

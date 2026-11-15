@@ -8,7 +8,15 @@ import { toast } from "sonner";
 import { Moon, Sun, UserPlus, Loader2 } from "lucide-react";
 import { useTheme } from "../contexts/ThemeContext";
 
+// le cambie por mi api de base de datos, para usar el viejo aqui esta
+//const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
+// const API_BASE = import.meta.env.VITE_API_URL || "http://192.168.0.27:3001/api";
 const API_BASE = import.meta.env.VITE_API_URL || "http://192.168.0.27:3001/api";
+
+const soloDigitos = (v: string, max: number) => v.replace(/\D/g, "").slice(0, max);
+
+const hoy = new Date().toISOString().split("T")[0];
+const fechaMinima = new Date(new Date().getFullYear() - 120, 0, 1).toISOString().split("T")[0];
 
 export function PatientRegisterPage() {
   const navigate = useNavigate();
@@ -32,6 +40,18 @@ export function PatientRegisterPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!/^\d{9}$/.test(formData.documento_identidad)) {
+      toast.error("El DUI debe tener exactamente 9 dígitos");
+      return;
+    }
+    if (formData.telefono && !/^[267]\d{7}$/.test(formData.telefono)) {
+      toast.error("El teléfono debe tener 8 dígitos y empezar con 2, 6 o 7");
+      return;
+    }
+    if (formData.fecha_nacimiento > hoy || formData.fecha_nacimiento < fechaMinima) {
+      toast.error("La fecha de nacimiento no es válida");
+      return;
+    }
     if (formData.password !== formData.confirmPassword) {
       toast.error("Las contraseñas no coinciden");
       return;
@@ -108,11 +128,11 @@ export function PatientRegisterPage() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="documento_identidad">Doc. de Identidad (DUI/Pasaporte) *</Label>
-                  <Input id="documento_identidad" value={formData.documento_identidad} onChange={(e) => setFormData({ ...formData, documento_identidad: e.target.value })} required />
+                  <Input id="documento_identidad" inputMode="numeric" maxLength={9} placeholder="9 dígitos, sin guion" value={formData.documento_identidad} onChange={(e) => setFormData({ ...formData, documento_identidad: soloDigitos(e.target.value, 9) })} required />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="fecha_nacimiento">Fecha de Nacimiento *</Label>
-                  <Input id="fecha_nacimiento" type="date" value={formData.fecha_nacimiento} onChange={(e) => setFormData({ ...formData, fecha_nacimiento: e.target.value })} required />
+                  <Input id="fecha_nacimiento" type="date" min={fechaMinima} max={hoy} value={formData.fecha_nacimiento} onChange={(e) => setFormData({ ...formData, fecha_nacimiento: e.target.value })} required />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="sexo">Sexo</Label>
@@ -139,7 +159,7 @@ export function PatientRegisterPage() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="telefono">Teléfono</Label>
-                  <Input id="telefono" type="tel" value={formData.telefono} onChange={(e) => setFormData({ ...formData, telefono: e.target.value })} />
+                  <Input id="telefono" type="tel" inputMode="numeric" maxLength={8} placeholder="8 dígitos, sin guion" value={formData.telefono} onChange={(e) => setFormData({ ...formData, telefono: soloDigitos(e.target.value, 8) })} />
                 </div>
                 <div className="space-y-2 col-span-2">
                   <Label htmlFor="direccion">Dirección</Label>

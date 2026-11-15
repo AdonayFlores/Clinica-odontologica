@@ -56,6 +56,11 @@ const emptyForm = {
   contacto_emergencia_telefono: "",
 };
 
+const soloDigitos = (v: string, max: number) => v.replace(/\D/g, "").slice(0, max);
+
+const hoy = new Date().toISOString().split("T")[0];
+const fechaMinima = new Date(new Date().getFullYear() - 120, 0, 1).toISOString().split("T")[0];
+
 export function PatientsPage() {
   const navigate = useNavigate();
   const [pacientes, setPacientes] = useState<Paciente[]>([]);
@@ -135,6 +140,25 @@ export function PatientsPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const dui = (formData as any).documento_identidad || "";
+    if (dui && !/^\d{9}$/.test(dui)) {
+      toast.error("El DUI debe tener exactamente 9 dígitos");
+      return;
+    }
+    if (formData.telefono && !/^[267]\d{7}$/.test(formData.telefono)) {
+      toast.error("El teléfono debe tener 8 dígitos y empezar con 2, 6 o 7");
+      return;
+    }
+    if (formData.contacto_emergencia_telefono && !/^[267]\d{7}$/.test(formData.contacto_emergencia_telefono)) {
+      toast.error("El teléfono de emergencia debe tener 8 dígitos y empezar con 2, 6 o 7");
+      return;
+    }
+    if (formData.fecha_nacimiento > hoy || formData.fecha_nacimiento < fechaMinima) {
+      toast.error("La fecha de nacimiento no es válida");
+      return;
+    }
+
     setSaving(true);
     try {
       if (editingPaciente) {
@@ -205,7 +229,7 @@ export function PatientsPage() {
     try {
       const token = localStorage.getItem("authToken");
       const res = await fetch(
-        `${import.meta.env.VITE_API_URL || "http://192.168.0.27:3001/api"}/pacientes/${accesoDialog.paciente!.id_paciente}/crear-acceso`,
+        `${import.meta.env.VITE_API_URL || "http://localhost:3001/api"}/pacientes/${accesoDialog.paciente!.id_paciente}/crear-acceso`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
@@ -394,13 +418,15 @@ export function PatientsPage() {
                 <Input
                   id="dui"
                   value={(formData as any).documento_identidad}
-                  onChange={(e) => setFormData({ ...formData, documento_identidad: e.target.value } as any)}
-                  placeholder="Ej: 00000000-0"
+                  onChange={(e) => setFormData({ ...formData, documento_identidad: soloDigitos(e.target.value, 9) } as any)}
+                  inputMode="numeric"
+                  maxLength={9}
+                  placeholder="9 dígitos, sin guion"
                 />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="fecha_nacimiento">Fecha de Nacimiento *</Label>
-                <Input id="fecha_nacimiento" type="date" value={formData.fecha_nacimiento} onChange={(e) => setFormData({ ...formData, fecha_nacimiento: e.target.value })} required />
+                <Input id="fecha_nacimiento" type="date" min={fechaMinima} max={hoy} value={formData.fecha_nacimiento} onChange={(e) => setFormData({ ...formData, fecha_nacimiento: e.target.value })} required />
               </div>
 
               {/* Fila 3: Sexo y Tipo de Sangre */}
@@ -442,7 +468,7 @@ export function PatientsPage() {
               {/* Fila 4: Teléfono y Correo */}
               <div className="space-y-2">
                 <Label htmlFor="telefono">Teléfono</Label>
-                <Input id="telefono" type="tel" value={formData.telefono} onChange={(e) => setFormData({ ...formData, telefono: e.target.value })} />
+                <Input id="telefono" type="tel" inputMode="numeric" maxLength={8} placeholder="8 dígitos, sin guion" value={formData.telefono} onChange={(e) => setFormData({ ...formData, telefono: soloDigitos(e.target.value, 8) })} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="correo">Correo</Label>
@@ -473,7 +499,7 @@ export function PatientsPage() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="contacto_emergencia_telefono">Teléfono Emergencia</Label>
-                <Input id="contacto_emergencia_telefono" type="tel" value={formData.contacto_emergencia_telefono} onChange={(e) => setFormData({ ...formData, contacto_emergencia_telefono: e.target.value })} />
+                <Input id="contacto_emergencia_telefono" type="tel" inputMode="numeric" maxLength={8} placeholder="8 dígitos, sin guion" value={formData.contacto_emergencia_telefono} onChange={(e) => setFormData({ ...formData, contacto_emergencia_telefono: soloDigitos(e.target.value, 8) })} />
               </div>
             </div>
             <DialogFooter>
