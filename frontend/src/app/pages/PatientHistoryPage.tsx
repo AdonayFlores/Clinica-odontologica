@@ -332,6 +332,7 @@ export function PatientHistoryPage() {
         indicaciones_generales: prescriptionIndicaciones,
         detalles: prescriptionItems.map(item => ({
           id_medicamento: item.id_medicamento,
+          nombre: item.nombre,
           dosis: item.dosis,
           frecuencia: item.frecuencia,
           duracion: item.duracion,

@@ -7,8 +7,8 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../components/ui/table";
 import { Search, Plus, Edit, Trash2, Loader2, Stethoscope, Copy } from "lucide-react";
 import { toast } from "sonner";
-
-const API_BASE = import.meta.env.VITE_API_URL || "http://192.168.0.27:3001/api";
+//const API_BASE = import.meta.env.VITE_API_URL || "http://192.168.0.27:3001/api";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
 const getHeaders = () => ({ "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem("authToken")}` });
 
 interface Odontologo {

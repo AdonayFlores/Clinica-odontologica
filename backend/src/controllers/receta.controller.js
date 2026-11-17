@@ -14,6 +14,7 @@ const getAll = async (req, res) => {
     );
     res.json(rows);
   } catch (error) {
+    console.error('Error al obtener recetas:', error);
     res.status(500).json({ error: 'Error al obtener recetas.' });
   }
 };
@@ -39,6 +40,7 @@ const getById = async (req, res) => {
 
     res.json({ ...receta[0], detalles });
   } catch (error) {
+    console.error('Error al obtener receta:', error);
     res.status(500).json({ error: 'Error al obtener receta.' });
   }
 };

@@ -11,8 +11,7 @@ import { useTheme } from "../contexts/ThemeContext";
 // le cambie por mi api de base de datos, para usar el viejo aqui esta
 //const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
 // const API_BASE = import.meta.env.VITE_API_URL || "http://192.168.0.27:3001/api";
-const API_BASE = import.meta.env.VITE_API_URL || "http://192.168.0.27:3001/api";
-
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
 const soloDigitos = (v: string, max: number) => v.replace(/\D/g, "").slice(0, max);
 
 const hoy = new Date().toISOString().split("T")[0];
